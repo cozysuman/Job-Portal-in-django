@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>  {% block title %} {% endblock %} - Pulchowk Job Portal</title>
+    <link rel="icon" type="image/gif/png" href="{% static 'img/TU_logo.png' %}">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet"
+          href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Google fonts - Roboto for copy, Montserrat for headings-->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet"
+          href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}"
+          id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block styles %}{% endblock %}
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+
+<body>
+
+<!-- navbar-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg" style="background-color:#DCDCDC">
+        <div class="container">
+            <a href="/" class="navbar-brand">
+                <img src="{% static 'img/logo.png' %}" width ="50" height="50" alt="logo" class="d-none d-lg-block">
+                <span class="sr-only">Home</span>
+            </a>
+            <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler navbar-toggler-right">Menu<i class="fa fa-bars"></i>
+            </button>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a href="/" class="nav-link active">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% if request.user.is_authenticated and request.user.role == 'employer' %}
+                        <li class="nav-item dropdown">
+                            <a id="clientZone" href="#" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"
+                               class="nav-link dropdown-toggle  mb-3 mb-lg-0 mt-3 mt-lg-0">
+
+                                {% if request.user.role == 'employee' %}
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                {% else %}
+                                    {{ request.user.first_name }}
+                                {% endif %}
+                            </a>
+                            <div aria-labelledby="clientZone" class="dropdown-menu">
+                                <a href="{% url 'jobs:employer-dashboard' %}" class="dropdown-item">Dashboard</a>
+                                <a href="{% url 'jobs:company_update_profile' %}" class="dropdown-item">Update Company Info</a>
+                                <a href="{% url 'jobs:employer-all-applicants' %}" class="dropdown-item">Applicants </a>
+                                <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new
+                                    job </a>
+                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    {% elif request.user.is_authenticated and request.user.role == 'employee' %}
+                    <li class="nav-item">
+                        <a href="{% url 'curriculum:resume_generate' %}" class="nav-link">CV Templates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'curriculum:profileview' %}" class="nav-link">View Profile</a>
+                    </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="clientZone" href="#" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"
+                               class="nav-link dropdown-toggle mb-3 mb-lg-0 mt-3 mt-lg-0">
+
+                                {% if request.user.role == 'employee' %}
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                {% else %}
+                                    {{ request.user.first_name }}
+                                {% endif %}
+                            </a>
+                            <div aria-labelledby="clientZone" class="dropdown-menu">
+
+                                <a href="{% url 'curriculum:resume' %}" class="dropdown-item">Create CV</a>
+                                <a href="{% url 'curriculum:updateResume' %}" class="dropdown-item">Update CV</a>
+                                <a href="{% url 'jobs:appliedJobs' %}" class="dropdown-item">Applied jobs</a>
+                                <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    {% else %}
+                     <li class="nav-item ">
+
+                    <a href="/admin" class="navbar-brand">
+                <i class="fa fa-user"></i>
+                Admin
+            </a>
+            </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="pages" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                               class="nav-link dropdown-toggle">
+
+                               Register
+                            </a>
+                            <div aria-labelledby="pages" class="dropdown-menu">
+                                <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Student</a>
+                                <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Company</a>
+                            </div>
+                        </li>
+                        <li class="nav-item ">
+                        <a></a>
+                    </li>
+                        <li class="nav-item" style="color: #fff; margin-top:12px">
+                            <a href="{% url 'accounts:login' %}">
+                                <button class="btn btn-my">Login</button>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div>
+    <div style="margin-left: 250px; margin-right: 250px">
+    {% if messages %}
+
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+{#            <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+        {% endfor %}
+
+    {% endif %}
+
+</div>
+
+
+
+{% block resume %}{% endblock %}
+
+    {% block content %} {% endblock %}
+
+
+{% block footer%}
+<footer class="footer">
+    <div class="footer__copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-md-left text-center">
+                    <p>&copy;2019 Job Portal for Pulchowk Campus</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"></script>
+<script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/front.js' %}"></script>
+
+{% block javascripts %}{% endblock %}
+
+</body>
+
+</html>

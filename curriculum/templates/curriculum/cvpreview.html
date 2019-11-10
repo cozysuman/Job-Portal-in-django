@@ -1,0 +1,162 @@
+{% load i18n curriculum %}
+{% load static %}
+<html>
+ <head>
+  <style type="text/css">
+  @page {
+    size: {{ pagesize }};
+    margin: 1cm;
+    border: 0pt solid white;
+
+  }
+  * {
+    font-size: 14px;
+    line-height: 15px;
+
+  }
+  .center {
+    text-align: center;
+  }
+   .h1, .h2 {
+    color: rgba(50, 29, 238, 0.733);
+  }
+  .skillcategory{
+    color: rgba(50, 29, 238, 0.733);
+    font-size: 16px;
+  }
+  .h1 {
+    font-size: 25px;
+  }
+  .h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .h3 {
+    font-size: 16px;
+    color: rgb(9, 48, 102);
+  }
+  .h3 small {
+    color: rgba(114, 108, 108, 0.63);
+  }
+  .separator {
+    border: 3px;
+    line-height: 0px;
+  }
+  .shiftword{
+    margin-left:8%;
+  }
+
+  </style>
+ </head>
+ <body style="margin-left: 200px">
+    <div id="content_frame">
+      <table>
+        <tr>
+          <td style="width: 330px">
+            {% if resume.image %}
+            <img height="150" width="150" src="{{ resume.image.url}}"/>
+            {% endif %}
+          </td>
+          <td class="center">
+            <h1 class="h1">{{ resume.firstname }} {{ resume.middlename|default_if_none:'' }} {{ resume.lastname }}<br>{% if resume.title %}<br>{{ resume.title }}{% endif %}</h1>
+            {% if resume.resume %}<i>{{ resume.resume }}</i>{% endif %}
+          </td>
+          <td style="width: 330px; text-align: right">
+              {% if resume.phone %}{{ resume.phone }}<br>{% endif %}
+              {% if resume.city or resume.country %}{{ resume.city|default:"" }}, {{ resume.country|default:"" }}<br>{% endif %}
+              {% if resume.email %}<a href="mailto:{{ resume.email }}">{{ resume.email }}</a><br>{% endif %}
+              {% if resume.website %}{{ resume.website|shortlink|safe }}<br>{% endif %}
+              {% if resume.skype %}<b>LinkedIn</b>: <a href="https://linkedin.com/in/{{ resume.skype }}">{{ resume.skype }}</a><br>{% endif %}
+              {% if resume.stackoverflow %}<b>stackoverflow</b>: <a href="http://stackoverflow.com/users/{{ resume.stackoverflow }}">{{ resume.stackoverflow }}</a><br>{% endif %}
+              {% if resume.github %}<b>GitHub</b>: <a href="https://github.com/{{ resume.github }}">{{ resume.github }}</a><br>{% endif %}
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>
+            {% if trainings %}
+
+              <pre ><br><h2 class="h2"><img src="{% static 'education.png' %}" alt="education" height="50" width="50" />{% trans "EDUCATIONS    _______________________________________" %}</h2></pre>
+              {% for training in trainings %}
+                <!--<h3 class="h3 shiftword">{{ training.degree }} ( <small>{% daterange_display training.start_year training.start_month training.end_year training.end_month %}</small> )</h3>-->
+                 <h3 class="h3 shiftword">
+                     {% if training.field_of_study %}
+                         {{ training.degree }} in {{training.field_of_study }}
+                     {% else %}
+                        {{ training.degree }}
+                    {% endif %}
+                     ( <small>{% daterange_display training.start_year training.start_month training.end_year training.end_month %}</small> )</h3>
+                <p class="shiftword">{% if not hide_training_description and training.school %}{{ training.school|linebreaksbr }}{% endif %}</p>
+                <p class="shiftword">{% if training.result %}Percentage: {{ training.result|linebreaksbr }}{% endif %}</p>
+
+              {% endfor %}
+            {% endif %}
+
+            {% if skills %}
+              <pre ><br><h2 class="h2"><img src="{% static 'skilll.png' %}" alt="education" height="50" width="50" />{% trans "SKILLS        _______________________________________" %}</h2></pre>
+              {% for skill in skills %}
+              {% ifchanged skill.category %}
+                <h3 class="skillcategory shiftword">{{ skill.category|capfirst }}</h3>
+              {% endifchanged %}
+                <h3 class="h3 shiftword">{{ skill }} - {{ skill.get_level_display|capfirst }}</h3>
+              {% endfor %}
+            {% endif %}
+
+            {% if projects %}
+
+              <pre ><br><h2 class="h2"><img src="{% static 'project.png' %}" alt="education" height="50" width="50" />{% trans "PROJECTS      _______________________________________" %}</h2></pre>
+              {% for project in projects %}
+                <h3 class="h3 shiftword"> {{ project.url|shortlink:project.title|safe }}  <small>{% daterange_display project.start_year project.start_month project.end_year project.end_month %}</small> </h3>
+
+                <p class="shiftword">{{ project.description|linebreaksbr }}</p>
+
+              {% endfor %}
+            {% endif %}
+
+            {% if experiences %}
+
+              <pre ><br><h2 class="h2"><img src="{% static 'experience1.png' %}" alt="education" height="50" width="50" />{% trans "EXPERIENCES    ______________________________________" %}</h2></pre>
+              {% for experience in experiences %}
+                <h3 class="h3 shiftword">{{ experience }} ( <small>{% daterange_display experience.start_year experience.start_month experience.end_year experience.end_month %}</small> )</h3>
+                <p class="shiftword">{% if not hide_experience_description and experience.description %}{{ experience.description|linebreaksbr }}{% endif %}</p>
+
+              {% endfor %}
+            {% endif %}
+
+            {% if certifications %}
+
+            <pre ><br><h2 class="h2"><img src="{% static 'certificate.png' %}" alt="education" height="50" width="50" />{% trans "CERTIFICATIONS ______________________________________" %}</h2></pre>
+              {% for certification in certifications %}
+                <h3 class="h3 shiftword">{{ certification.url|shortlink:certification.title|safe }} ( <small>{% daterange_display certification.end_year certification.end_month %}</small> )</h3>
+
+              {% endfor %}
+            {% endif %}
+
+            {% if resume.hobbies %}
+
+              <pre><br><h2 class="h2"><img src="{% static 'hobby.png' %}" alt="education" height="50" width="50" />{% trans "HOBBIES      _______________________________________" %}</h2></pre>
+              <h3 class="h3 shiftword">{{ resume.hobbies|linebreaksbr }}</h3>
+            {% endif %}
+
+            {% if resume.languages %}
+
+              <pre><br><h2 class="h2"><img src="{% static 'language.png' %}" alt="education" height="50" width="50" />{% trans "LANGUAGES      _______________________________________" %}</h2></pre>
+              <h3 class="h3 shiftword">{% for language in resume.languages.all %}
+                  {{ language }} - {{ language.get_level_display|capfirst }}
+                  <br>
+                  {% endfor %}
+              </h3>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+        <!--<img src="{% static 'tree.png' %}" alt="photo" height="400" width="300" />-->
+
+
+
+ </body>
+</html>

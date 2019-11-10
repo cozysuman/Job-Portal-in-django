@@ -1,0 +1,119 @@
+{% extends 'resume_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+<!-- <div class="headline">
+    <div id="ani">
+    <h1>basic info</h1></div>
+</div> -->
+
+<div class="col-lg-7 offset-4  mx-auto">
+    <div class="box border rounded">
+        <form enctype="multipart/form-data" method="POST" action="" >
+            {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+              {% for objs in obj %}
+              {% for field in form %}
+              {% if field.name == 'firstname' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ objs.first_name|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+            </div>
+              <div class="form-group col-md-4 mb-0">
+            {% for objs in obj %}
+            {% for field in form %}
+            {% if field.name == 'middlename' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ objs.middle_name|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {% for objs in obj %}
+            {% for field in form %}
+            {% if field.name == 'lastname' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ objs.last_name|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            </div>
+            </div>
+            {% for objs in obj %}
+            {% for field in form %}
+            {% if field.name == 'email' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ objs.email|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {{ form.title|as_crispy_field }}
+            {{ form.resume|as_crispy_field }}
+            {{ form.image|as_crispy_field }}
+
+          <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+              {{ form.phone|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+              {{ form.website|as_crispy_field }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+              {{ form.city|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+              {{ form.country|as_crispy_field }}
+            </div>
+          </div>
+
+          {{ form.hobbies|as_crispy_field }}
+
+          <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+              {{ form.skype|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+              {{ form.stackoverflow|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+              {{ form.github|as_crispy_field }}
+            </div>
+          </div>
+
+          <input class="btn btn-info btn-lg btn-block" type="submit" value="save" />
+            {{ endfor }}
+        </form>
+      </div>
+    </div>
+{% endblock %}

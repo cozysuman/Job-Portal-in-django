@@ -1,0 +1,121 @@
+{% extends 'update_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-7 offset-3 mx-auto">
+    <div class="box rounded">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'language' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'level' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+
+                            <select type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+
+                            {% if field.value == 'NOT' %}
+                            <option value="NOT">Notion</option>
+                            <option value="BAS">Basic</option>
+                            <option value="ADV">Advanced</option>
+                            <option value="PRO">Professional</option>
+                            <option value="BIL">Bilingual</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'BAS' %}
+                            <option value="BAS">Basic</option>
+                            <option value="NOT">Notion</option>
+
+                            <option value="ADV">Advanced</option>
+                            <option value="PRO">Professional</option>
+                            <option value="BIL">Bilingual</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'ADV' %}
+                            <option value="ADV">Advanced</option>
+                            <option value="NOT">Notion</option>
+                            <option value="BAS">Basic</option>
+
+                            <option value="PRO">Professional</option>
+                            <option value="BIL">Bilingual</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'PRO' %}
+                            <option value="PRO">Professional</option>
+                            <option value="NOT">Notion</option>
+                            <option value="BAS">Basic</option>
+                            <option value="ADV">Advanced</option>
+
+                            <option value="BIL">Bilingual</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'BIL' %}
+                            <option value="BIL">Bilingual</option>
+                            <option value="NOT">Notion</option>
+                            <option value="BAS">Basic</option>
+                            <option value="ADV">Advanced</option>
+                            <option value="PRO">Professional</option>
+
+
+                            </select>
+                            {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+
+
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Update
+                    </button>
+                </div>
+
+        </form>
+
+
+        </br>
+        <form action="{% url 'curriculum:delete_language' view.kwargs.id %}" method="POST">
+          {% csrf_token %}
+              <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Delete
+                    </button>
+                </div>
+
+        </form>
+    </div>
+</div>
+
+
+    {% endblock %}

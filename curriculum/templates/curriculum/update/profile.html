@@ -1,0 +1,261 @@
+{% extends 'update_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="col-lg-7 offset-3 mx-auto">
+    <div class="box border rounded">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'firstname' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'middlename' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'lastname' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        {% for field in form %}
+            {% if field.name == 'email' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+        <br>
+
+        {% for field in form %}
+            {% if field.name == 'title' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+        <br>
+        {% for field in form %}
+            {% if field.name == 'resume' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <textarea type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   cols="40"
+                                   rows="10"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value=""
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                                {{ field.value|default_if_none:'' }}
+                                </textarea>
+            {% endif %}
+            {% endfor %}
+        <br>
+        {% for field in form %}
+            {% if field.name == 'image' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+        <br>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'phone' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'city' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'country' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        {% for field in form %}
+            {% if field.name == 'hobbies' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+            {% endif %}
+            {% endfor %}
+        <br>
+        <div class="form-row">
+
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'skype' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'website' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'github' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Update
+                    </button>
+                </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<!--             <div class="container">
+  <div class="row">
+    <div class="col">
+            {{ r_form|crispy }}
+        </div> -->
+            <!-- <div class="col">
+            {{ s_form|crispy }}
+        </div>
+            <div class="col">
+            {{ p_form|crispy }}
+        </div>
+            {% for field in r_form %}
+            {% if field.name == 'firstname' %}
+            <h1>success</h1>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+            {% for objs in obj %}
+            {{ objs.first_name }}
+            {% endfor %} -->
+        <!-- </div>
+            <input class="btn btn-primary" type="submit" value="save" />
+        </form> -->
+
+    {% endblock %}

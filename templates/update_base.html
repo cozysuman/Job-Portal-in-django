@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+{% block resume %}
+
+
+<style>
+
+    /* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 200px;
+  padding: 1px 16px;
+  height: 1000px;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+</style>
+
+<!--<div class="sidenav">-->
+    <div class="sidebar">
+    <div class="sidebar-header">
+            <h3>My Resume</h3>
+            <!--<a href=""><img class="rounded-circle" style=" margin-left: 20px"width ="70" height="70" src="{{ user.profile.image.url }}"></a>-->
+    </div>
+    <br>
+        <a href="{% url 'curriculum:updateResume' %}" class="{{ resume_active }}"><i class="fa fa-address-book" style="font-size:18px;color:#2F4F4F"></i>Basic Info</a>
+        <a href="{% url 'curriculum:updatetraining' %}" class="{{ training_active }}"><i class='fa fa-graduation-cap' style='font-size:18px;color:#2F4F4F'></i>Education</a>
+        <a href="{% url 'curriculum:updateproject' %}" class="{{ project_active }}"><i class="fa fa-address-book" style="font-size:18px;color:#2F4F4F"></i>Project</a>
+        <a href="{% url 'curriculum:updateskill' %}" class="{{ skill_active }}"><i class='fa fa-graduation-cap' style='font-size:18px;color:#2F4F4F'></i>Skill</a>
+        <a href="{% url 'curriculum:updateexperience' %}" class="{{ experience_active }}"><i class="fa fa-address-book" style="font-size:18px;color:#2F4F4F"></i>Experience</a>
+        <a href="{% url 'curriculum:updatecertification' %}" class="{{ certification_active }}"><i class='fa fa-graduation-cap' style='font-size:18px;color:#2F4F4F'></i>Certification</a>
+        <a href="{% url 'curriculum:updatelanguage' %}" class="{{ language_active }}"><i class="fa fa-address-book" style="font-size:18px;color:#2F4F4F"></i>Language</a>
+
+
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+

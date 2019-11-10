@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Company profile
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-lg-7 offset-3 mx-auto">
+    <div class="box border rounded">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-primary" type="submit" value="save" />
+
+            <br>
+            <div style="text-align: right">
+
+        </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

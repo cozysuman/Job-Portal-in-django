@@ -1,0 +1,239 @@
+{% extends 'update_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-lg-7 offset-3 mx-auto">
+    <div class="box rounded">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'school' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'degree' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <select type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+
+                            {% if field.value == 'High School' %}
+                            <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Phd">Phd</option>
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'Diploma' %}
+                            <option value="Diploma">Diploma</option>
+                            <option value="High School">High School</option>
+
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Phd">Phd</option>
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'Bachelors' %}
+                            <option value="Bachelors">Bachelors</option>
+                           <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+
+                            <option value="Masters">Masters</option>
+                            <option value="Phd">Phd</option>
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'Masters' %}
+                            <option value="Masters">Masters</option>
+                            <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelors">Bachelors</option>
+
+                            <option value="Phd">Phd</option>
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'Phd' %}
+                            <option value="Phd">Phd</option>
+                            <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Masters">Masters</option>
+
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'SLC/SEE' %}
+                            <option value="SLC/SEE">SLC/SEE</option>
+                            <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Phd">Phd</option>
+
+                            <option value="Others">Others</option>
+                            </select>
+                            {% endif %}
+
+                            {% if field.value == 'Others' %}
+                            <option value="Others">Others</option>
+                            <option value="High School">High School</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelors">Bachelors</option>
+                            <option value="Masters">Masters</option>
+                            <option value="Phd">Phd</option>
+                            <option value="SLC/SEE">SLC/SEE</option>
+
+                            </select>
+                            {% endif %}
+
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {% for field in form %}
+                {% if field.name == 'result' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+                {% for field in form %}
+                {% if field.name == 'field_of_study' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            <br>
+
+            <div class="form-row">
+
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'start_year' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'end_year' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Update
+                    </button>
+                </div>
+
+        </form> </br>
+
+        <form action="{% url 'curriculum:delete_training' view.kwargs.id %}" method="POST">
+	        {% csrf_token %}
+	            <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Delete
+                    </button>
+                </div>
+
+        </form>
+
+
+    </div>
+</div>
+
+
+
+
+
+<!--             <div class="container">
+  <div class="row">
+    <div class="col">
+            {{ r_form|crispy }}
+        </div> -->
+            <!-- <div class="col">
+            {{ s_form|crispy }}
+        </div>
+            <div class="col">
+            {{ p_form|crispy }}
+        </div>
+            {% for field in r_form %}
+            {% if field.name == 'firstname' %}
+            <h1>success</h1>
+            {% endif %}
+            {% endfor %}
+
+
+        </div>
+            {% for objs in obj %}
+            {{ objs.first_name }}
+            {% endfor %} -->
+        <!-- </div>
+            <input class="btn btn-primary" type="submit" value="save" />
+        </form> -->
+
+    {% endblock %}

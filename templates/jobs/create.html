@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="heading">Add a new position</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>{{ field.name }} {{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                    <form id="job-main-form" method="post" action="" class="job-add-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4>Job details</h4>
+                                <p class="text-muted text-small">Please fill in all the fields to provide detailed description of the job. </p>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                <label for="title">Job Title</label>
+                                <input id="title" name="title" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                <label for="text">Job Description</label>
+                                <textarea id="text" name="description" rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                <label for="title">Required Skills</label>
+                                <input id="title" name="skills" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <label for="location">Salary</label>
+                                <input id="location" name="salary" type="text" placeholder="e.g. Nrs. 10000"
+                                       class="form-control">
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <br>
+                                <br>
+                                <label for="type">
+                                <input type="checkbox" name="negotiable" value="Negotiable">Negotiable? </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <label for="location">Location</label>
+                                <input id="location" name="location" type="text" placeholder="e.g. Kathmandu"
+                                       class="form-control">
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="type">Type</label>
+                                <select id="type" name="type" placeholder="Choose job type"
+                                        class="form-control select2">
+                                    <option value="1">Full time</option>
+                                    <option value="2">Part time</option>
+                                    <option value="3">Internship</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="row">-->
+                        <!--    <div class="col-lg-6 form-group">-->
+                        <!--        <label for="category">Category</label>-->
+                        <!--        <select id="category" name="category" placeholder="Choose category"-->
+                        <!--                class="form-control select2">-->
+                        <!--            <option value="web-design">Web design</option>-->
+                        <!--            <option value="graphic-design">Graphic design</option>-->
+                        <!--            <option value="web-development">Web development</option>-->
+                        <!--            <option value="human-resource">Human Resources</option>-->
+                        <!--            <option value="support">Support</option>-->
+                        <!--            <option value="android">Android</option>-->
+                        <!--            <option value="others">Others</option>-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <div class="row">
+                        <div class="col-lg-6 form-group">
+                                <label for="category">Category</label>
+                                <input id="category" name="category" type="text" placeholder="e.g. Web design/ Human resource"
+                                       class="form-control">
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 form-group">
+                                <label for="apply_url">Apply URL <span
+                                        class="note">(users will apply on your website)</span></label>
+                                <input id="apply_url" type="url" class="form-control">
+                            </div>
+                            <div class="col-xl-6 form-group">
+                                <label for="validity">Validity of the post</label>
+                                <input id="validity" name="last_date" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <hr class="margin-bottom--big">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <hr>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <hr>
+                                <button type="submit" class="btn btn-info btn-lg btn-block">
+                                    Save and publish
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

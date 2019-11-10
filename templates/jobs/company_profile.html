@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Company Profile
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+
+
+      <div>
+        <h1 class="heading">{{ company.company_name }} </h1>
+
+      </div>
+
+      <div >
+            {% if company.Phone %}{{ company.Phone }}<br>{% endif %}
+                      {% if company.address  %}{{ company.address|default:"" }}<br>{% endif %}
+                      {% if company.email %}<a href="mailto:{{ company.email }}">{{ company.email }}</a><br>{% endif %}
+                      {% if company.website %}<a href="{{ company.website}}">visit website</a><br>{% endif %}
+                      <div>
+                          {% if company.company_description %}<p>{{ company.company_description }}</p>{% endif %}
+                      </div>
+      </div>
+    </div>
+  </div>
+
+</body>

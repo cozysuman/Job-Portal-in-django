@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    About Us
+{% endblock %}
+
+{% block content %}
+
+<body style ="background-color: #D8BFD8;">
+  <div class="row about">
+    <div class="col-lg-12" style="text-align: center;">
+    <a target="_self" href="#" class="imgButton one">
+        <img class="rounded-circle mx-auto d-block" src="{% static 'img/profile.jpg'%}" width="200" height="200" ></a>
+      <p> Name: Suman Khatri<br>
+      id: </p>
+    <div class="col-lg-12">
+  </div>
+
+  <div class="row about">
+    <div class="col-lg-3">
+      <a target="_self" href="#" class="imgButton one">
+        <img class="rounded-circle mx-auto d-block" src="{% static 'img/profile.jpg'%}" width="200" height="200" ></a>
+      <p> Name: Suman Khatri<br>
+      id: </p>
+    </div>
+    <div class="col-lg-3">
+      <a target="_self" href="#" class="imgButton two">
+        <img class="rounded-circle mx-auto d-block" src="{% static 'img/profile.jpg'%}" width="200" height="200" ></a>
+      <p>suman khatri</p>
+    </div>
+    <div class="col-lg-3">
+      <a target="_self" href="#" class="imgButton three">
+        <img class="rounded-circle mx-auto d-block" src="{% static 'img/profile.jpg'%}" width="200" height="200" ></a>
+      <p>suman khatri</p>
+    </div>
+    <div class="col-lg-3">
+      <a target="_self" href="#" class="imgButton four">
+        <img class="rounded-circle mx-auto d-block" src="{% static 'img/profile.jpg'%}" width="200" height="200" ></a>
+      <p>Suman khatri</p>
+    </div>
+  </div>
+</body>
+
+
+{% endblock %}

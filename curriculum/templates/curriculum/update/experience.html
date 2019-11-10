@@ -1,0 +1,142 @@
+{% extends 'update_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-7 offset-3 mx-auto">
+    <div class="box rounded">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %}
+            <div class="form-row">
+
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'title' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'entreprise' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}{% if field.field.required %}*{% endif %}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+
+                {% for field in form %}
+                {% if field.name == 'description' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <textarea type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   cols="40"
+                                   rows="10"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value=""
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                                {{ field.value|default_if_none:'' }}
+                                </textarea>
+                {% endif %}
+                {% endfor %}
+            <br>
+            <div class="form-row">
+
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'start_year' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="form-group col-md-6 mb-0">
+                {% for field in form %}
+                {% if field.name == 'end_year' %}
+                            <label for="id_{{ field.name }}">{{ field.label }}</label>
+                            <input type="{{ field.field.widget.input_type }}"
+                                   class="form-control"
+                                   name="{{ field.name }}"
+                                   id="id_{{ field.name }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   placeholder="{{ field.field.widget.attrs.placeholder }}">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+
+        <!--<div class="form-row">-->
+
+        <!--    <div class="form-group col-md-6 mb-0">-->
+        <!--        {% for field in form %}-->
+        <!--        {% if field.name == 'end_year' %}-->
+        <!--                    <label for="id_{{ field.name }}">{{ field.label }}</label>-->
+        <!--                    <input type="{{ field.field.widget.input_type }}"-->
+        <!--                           class="form-control"-->
+        <!--                           name="{{ field.name }}"-->
+        <!--                           id="id_{{ field.name }}"-->
+        <!--                           value="{{ field.value|default_if_none:'' }}"-->
+        <!--                           placeholder="{{ field.field.widget.attrs.placeholder }}">-->
+        <!--        {% endif %}-->
+        <!--        {% endfor %}-->
+        <!--    </div>-->
+        <!--    <div class="form-group col-md-6 mb-0">-->
+        <!--        {% for field in form %}-->
+        <!--        {% if field.name == 'end_month' %}-->
+        <!--                    <label for="id_{{ field.name }}">{{ field.label }}</label>-->
+        <!--                    <input type="{{ field.field.widget.input_type }}"-->
+        <!--                           class="form-control"-->
+        <!--                           name="{{ field.name }}"-->
+        <!--                           id="id_{{ field.name }}"-->
+        <!--                           value="{{ field.value|default_if_none:'' }}"-->
+        <!--                           placeholder="{{ field.field.widget.attrs.placeholder }}">-->
+        <!--        {% endif %}-->
+        <!--        {% endfor %}-->
+        <!--    </div>-->
+        <!--</div>-->
+        <!--<br>-->
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Update
+                    </button>
+                </div>
+
+        </form> </br>
+        <form action="{% url 'curriculum:delete_experience' view.kwargs.id %}" method="POST">
+	        {% csrf_token %}
+	            <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-lg btn-block">
+                         Delete
+                    </button>
+                </div>
+
+        </form>
+    </div>
+</div>
+
+
+    {% endblock %}

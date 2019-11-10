@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load is_already_applied %}
+{% block title %}
+    Job details
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <h1 class="heading">{{ job.title }}<br>
+                <small>at {% if job.website %}<a href="{{ job.website }}" target="_blank"> {{ job.company_name }}</a></small>
+                {% else %}<small>{{ job.company_name }}</small> {% endif %}
+            </h1>
+            <div class="job-detail-description"><i class="fa fa-map-marker job__location"> </i>
+                {{ job.location }} | Posted {{ job.created_at|timesince }} |
+                {% if job.type == '1' %}
+                    <span class="badge badge-pill badge-success">Full time</span>
+                {% elif job.type == '2' %}
+                    <span class="badge badge-pill badge-success">Part time</span>
+                {% else %}
+                    <span style="color: #ffffff;" class="badge badge-pill badge-success">Internship</span>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <blockquote class="blockquote">
+                    <h5>Category: {{ job.category }}</h5>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                    <h5>Last date: {{ job.last_date|date }}</h5>
+                    </blockquote>
+                    {% if job.salary %}
+                    <blockquote class="blockquote">
+                    <h5 class="text-info">Salary: {{job.salary}}</h5>
+                    </blockquote>
+                    {% endif %}
+                    {% if job.negotiable %}
+                    <blockquote class="blockquote">
+                    <h5 class="text-info"> Negotiable</h5>
+                    </blockquote>
+                    {% endif %}
+                    <blockquote class="blockquote">
+                        <p>Required skills:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>{{ job.skills }}</small></p>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                        <p>Job description: &nbsp;&nbsp;&nbsp;&nbsp;<small>{{ job.description }}</small></p>
+                    </blockquote>
+
+
+                    <div class="job-detail__apply-bottom">
+                        {% if request.user.is_authenticated and request.user.role == 'employee' %}
+                            {% is_already_applied job request.user as is_applied %}
+                            {% if is_applied %}
+                                <input type="button" class="btn btn-success" disabled="disabled" value="Already applied"/>
+                            {% else %}
+                                <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job" value="{{ job.id }}">
+                                    <input type="submit" class="btn btn-info"
+                                           value="Apply for this job"/>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- <div class="col-lg-1"></div> -->
+
+                <div class="col-lg-4">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                    <h5>About </h5><h4>{{ job.company_name }}</h4>
+                    <p class="job-detail__company-description">{{ job.company_description }}</p>
+                    <a href="{{ job.website }} " target="_blank"><small>Visit Company Website</small></a>
+                    <!-- <p class="job-detail__social social social--outline">
+                        <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website"
+                           class="link">
+                            <i class="fa fa-link"></i>
+                        </a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Twitter" class="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Facebook" class="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </p> -->
+                </div>
+            </div>
+                    <!-- <div class="job-detail__apply-top">
+                        {% if is_applied %}
+                            <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
+                        {% else %}
+                            <form action="{% url 'jobs:apply-job' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="job" value="{{ job.id }}">
+                                <input type="submit" class="btn btn-outline-white-primary" value="Apply for this job"/>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

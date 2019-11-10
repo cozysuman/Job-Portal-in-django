@@ -1,0 +1,17 @@
+{% extends 'resume_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+{% block content%}
+<div class="col-lg-5 offset-3 mx-auto">
+    <div class="box border">
+        <form enctype="multipart/form-data" method="POST" action="">
+            {% csrf_token %} 
+            {{ form|crispy }}
+            <input class="btn btn-info btn-lg btn-block" type="submit" value="save" />
+        </form>
+    </div>
+</div>
+   {% endblock %}

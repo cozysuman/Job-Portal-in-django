@@ -1,0 +1,138 @@
+{% load i18n curriculum %}
+
+<html>
+ <head>
+  <style type="text/css">
+  @page {
+    size: {{ pagesize }};
+    margin: 1cm;
+    border: 0pt solid white;
+
+  }
+  * {
+    font-size: 14px;
+    line-height: 15px;
+
+  }
+  .center {
+    text-align: center;
+  }
+  a[href], .h1, .h2 {
+    color: rgba(65, 90, 235, 0.733);
+  }
+  .h1 {
+    font-size: 25px;
+  }
+  .h2 {
+    font-size: 17px;
+  }
+  .h3 {
+    font-size: 15px;
+    color: #3066B2;
+  }
+  .h3 small {
+    color: rgba(114, 108, 108, 0.63);
+  }
+  .separator {
+    border: 3px;
+    line-height: 0px;
+  }
+
+  </style>
+ </head>
+ <body>
+    <div id="content_frame">
+      <table>
+        <tr>
+          <td style="width: 330px">
+            {% if resume.image %}
+            <img height="120" width="120" src="{{ resume.image.url }}"/>
+            {% endif %}
+          </td>
+          <td class="center">
+            <h1 class="h1">{{ resume.firstname }} {{ resume.middlename|default_if_none:'' }} {{ resume.lastname }}<br>{% if resume.title %}<br>{{ resume.title }}{% endif %}</h1>
+            {% if resume.resume %}<i>{{ resume.resume }}</i>{% endif %}
+          </td>
+          <td style="width: 330px; text-align: right">
+              {% if resume.phone %}{{ resume.phone }}<br>{% endif %}
+              {% if resume.city or resume.country %}{{ resume.city|default:"" }}, {{ resume.country|default:"" }}<br>{% endif %}
+              {% if resume.email %}<a href="mailto:{{ resume.email }}">{{ resume.email }}</a><br>{% endif %}
+              {% if resume.website %}{{ resume.website|shortlink|safe }}<br>{% endif %}
+              {% if resume.skype %}<b>LinkedIn</b>: <a href="https://linkedin.com/in/{{ resume.skype }}">{{ resume.skype }}</a><br>{% endif %}
+              {% if resume.stackoverflow %}<b>stackoverflow</b>: <a href="http://stackoverflow.com/users/{{ resume.stackoverflow }}">{{ resume.stackoverflow }}</a><br>{% endif %}
+              {% if resume.github %}<b>GitHub</b>: <a href="https://github.com/{{ resume.github }}">{{ resume.github }}</a><br>{% endif %}
+          </td>
+        </tr>
+      </table>
+      {% if trainings %}
+
+      <pre class="h2"><br><h2 >{% trans "EDUCATIONS    _______________________________________" %}</h2></pre>
+        {% for training in trainings %}
+          <!--<h3 class="h3">{{ training.degree }} ( <small>{% daterange_display training.start_year training.start_month training.end_year training.end_month %}</small> )</h3>-->
+          <h3 class="h3 shiftword">
+                     {% if training.field_of_study %}
+                         {{ training.degree }} in {{training.field_of_study }}
+                     {% else %}
+                        {{ training.degree }}
+                    {% endif %}
+                     ( <small>{% daterange_display training.start_year training.start_month training.end_year training.end_month %}</small> )</h3>
+          <p>{% if not hide_training_description and training.school %}{{ training.school|linebreaksbr }}{% endif %}</p>
+          <p>{% if training.result %}Percentage: {{ training.result|linebreaksbr }}{% endif %}</p>
+
+        {% endfor %}
+      {% endif %}
+
+      {% if skills %}
+      <pre class="h2"><br><h2 >{% trans "SKILLS        _______________________________________" %}</h2></pre>
+        {% for skill in skills %}
+          <h3 class="h3">{{ skill }} - {{ skill.get_level_display|capfirst }}</h3>
+        {% endfor %}
+      {% endif %}
+
+      {% if projects %}
+
+      <pre class="h2"><br><h2 >{% trans "PROJECTS      _______________________________________" %}</h2></pre>
+        {% for project in projects %}
+          <h3 class="h3"> {{ project.url|shortlink:project.title|safe }}  <small>{% daterange_display project.start_year project.start_month project.end_year project.end_month %}</small> </h3>
+
+          <p>{{ project.description|linebreaksbr }}</p>
+
+        {% endfor %}
+      {% endif %}
+
+      {% if experiences %}
+
+      <pre class="h2"><br><h2 >{% trans "EXPERIENCES    ______________________________________" %}</h2></pre>
+        {% for experience in experiences %}
+          <h3 class="h3">{{ experience }} ( <small>{% daterange_display experience.start_year experience.start_month experience.end_year experience.end_month %}</small> )</h3>
+          <p>{% if not hide_experience_description and experience.description %}{{ experience.description|linebreaksbr }}{% endif %}</p>
+
+        {% endfor %}
+      {% endif %}
+
+      {% if certifications %}
+
+      <pre class="h2"><br><h2 >{% trans "CERTIFICATIONS ______________________________________" %}</h2></pre>
+        {% for certification in certifications %}
+         <h3 class="h3">{{ certification.url|shortlink:certification.title|safe }} ( <small>{% daterange_display certification.end_year certification.end_month %}</small> )</h3>
+
+        {% endfor %}
+      {% endif %}
+
+      {% if resume.hobbies %}
+
+      <pre class="h2"><br><h2 >{% trans "HOBBIES      _______________________________________" %}</h2></pre>
+        {{ resume.hobbies|linebreaksbr }}
+      {% endif %}
+
+
+      {% if resume.languages %}
+      <pre class="h2"><br><h2 >{% trans "LANGUAGES      _______________________________________" %}</h2></pre>
+                  {% for language in resume.languages.all %}
+                  {{ language }} - {{ language.get_level_display|capfirst }}
+                  <br>
+                  {% endfor %}
+                {% endif %}
+    </div>
+ </body>
+</html>

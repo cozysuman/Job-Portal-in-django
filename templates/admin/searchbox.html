@@ -1,0 +1,53 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job-form-box">
+                        <h2 class="heading">Search candidates</span>.
+                        </h2>
+                        <form id="job-main-form" method="get" action="{% url 'jobs:candidate_search' %}" class="job-main-form"> 
+                         
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="profession">Position</label>
+                                            <input type="text" id="profession" name="position"
+                                                   placeholder="Position you are looking for" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Qualification</label>
+                                            <input type="text" id="location" name="qualification"
+                                                   placeholder="Qualification?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Skills</label>
+                                            <input type="text" id="skill" name="skill"
+                                                   placeholder="Any particular skills?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Years of Experience</label>
+                                            <input type="number" id="location" name="experience"
+                                                   placeholder="Required years of experience?" class="form-control" value="0" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary job-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>

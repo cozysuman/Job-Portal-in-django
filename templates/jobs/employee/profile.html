@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-4 offset-3 mx-auto">
+    <div class="box border rounded">
+      <div class="media">
+        <img class="rounded-circle mx-auto d-block" src="{{ user.profile.image.url }}" height="200" width="200">
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+              {{ p_form|crispy }}
+              <button class="btn btn-outline-info" type="submit">Update</button>
+      </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

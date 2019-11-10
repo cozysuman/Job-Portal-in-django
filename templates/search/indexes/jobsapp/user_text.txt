@@ -1,0 +1,3 @@
+{% for resume in object.resume_set.all %}
+    {{ resume.title }}
+{% endfor %}

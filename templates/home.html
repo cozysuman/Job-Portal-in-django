@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+         class="modal fade">
+        <div role="document" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="exampleModalLabel" class="modal-title">Customer Login</h4>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <input id="email_modal" type="text" placeholder="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input id="password_modal" type="password" placeholder="password" class="form-control">
+                        </div>
+                        <p class="text-center">
+                            <button type="button" class="btn btn-outline-white-primary"><i class="fa fa-sign-in"></i>
+                                Log in
+                            </button>
+                        </p>
+                    </form>
+                    <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted"><a href="client-register.html"><strong>Register now</strong></a>!
+                        It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- *** LOGIN MODAL END ***-->
+    <!-- <section class="job-form-section job-form-section--image"> -->
+       <!--  <div id="ani">
+    <h1 >welcome</h1>
+</div>
+        <div id=contain>
+  <div id=flip>
+    <div><div>{{ request.user.last_name }}</div></div>
+    <div><div>{{ request.user.first_name }}</div></div>
+  </div>
+</div> -->
+
+
+    <!-- *** LOGIN MODAL END ***-->
+    <section class="job-form-section job-form-section--image">
+        {% if request.user.is_authenticated and request.user.role == 'employer' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job-form-box">
+                        <h2 class="heading">Find  <span class="accent">employees</span> you
+                            <span class="accent">need</span>.
+                        </h2>
+                        <form id="job-main-form" method="get" action="{% url 'jobs:candidate_search' %}" class="job-main-form">
+
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="profession">Position</label>
+                                            <input type="text" id="profession" name="position"
+                                                   placeholder="ex:Project Manager" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Qualification</label>
+                                            <input type="text" id="location" name="qualification"
+                                                   placeholder="ex:Bachelors in computer science" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Skills</label>
+                                            <input type="text" id="skill" name="skill"
+                                                   placeholder="ex:python" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="location">Years of Experience</label>
+                                            <input type="number" id="location" name="experience"
+                                                   placeholder="Any years of experience?" class="form-control" value="0" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary job-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="job-form-box">
+                        <h2 class="heading">FIND THE
+                        <div id=contain>
+  <div id=flip>
+    <div><div>job</div></div>
+    <div><div>dream</div></div>
+
+  </div>
+</div>
+                            <!-- <span class="accent">job</span> you will
+                            <span class="accent">love</span> -->
+                        </h2>
+                        <form id="job-main-form" method="get" action="{% url 'jobs:searh' %}" class="job-main-form">
+                            <div class="controls">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="profession">Position</label>
+                                            <input type="text" id="profession" name="position"
+                                                   placeholder="Any position?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="location">Location</label>
+                                            <input type="text" id="location" name="location"
+                                                   placeholder="Any location?" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                                <label for="type">Type</label>
+                                                <select id="type" name="type" placeholder="Choose job type"
+                                                        class="form-control">
+                                                    <option value=""></option>
+                                                    <option value="1">Full time</option>
+                                                    <option value="2">Part time</option>
+                                                    <option value="3">Internship</option>
+                                                </select>
+                                        </div>
+                                   </div>
+                                    <div class="col-md-2">
+                                        <button type="submit"
+                                                class="btn btn-outline-white-primary job-main-form__button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="bg-light-gray">
+        <div class="container">
+            <h3 class="heading">Featured jobs</h3>
+            <div class="row featured align-items-stretch">
+                {% for job in jobs %}
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="box-image-text bg-visible full-height">
+                            <div class="top">
+                                <a href="{% url 'jobs:jobs-detail' job.id %}">
+                                    <div class="image">
+                                        <img src="{% static 'img/form11.jpg' %}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="logo">
+                                        <img src="{% static 'img/logo1.png' %}" alt="" style="max-width: 80px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h5>
+                                <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
+                                    {{ job.location }}
+                                    {% if job.type == '1' %}
+                                        <span class="badge featured-badge badge-success">Full time</span>
+                                    {% elif job.type == '2' %}
+                                        <span class="badge featured-badge badge-primary">Part time</span>
+                                    {% else %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
+                                    {% endif %}
+                                </p>
+                                <p>{{ job.snippet }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+        {% if request.user.role == 'employee' %}
+        {% if recommendations %}
+    <section class="bg-light-gray">
+        <div class="container">
+            <h4 class="heading">Recommended Jobs</h4>
+            <div class="row featured align-items-stretch">
+            {% for recommendation in recommendations %}
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="box-image-text bg-visible full-height">
+                            <div class="top">
+                                <a href="{% url 'jobs:jobs-detail' recommendation.id %}">
+                                    <div class="image">
+                                        <img src="{% static 'img/feature.jpg' %}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="logo">
+                                        <img src="{% static 'img/logo1.png' %}" alt="" style="max-width: 80px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{% url 'jobs:jobs-detail' recommendation.id %}">{{ recommendation.title }}</a></h5>
+                                <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
+                                    {{ recommendation.location }}
+                                    {% if recommendation.type == '1' %}
+                                        <span class="badge featured-badge badge-success">Full time</span>
+                                    {% elif recommendation.type == '2' %}
+                                        <span class="badge featured-badge badge-primary">Part time</span>
+                                    {% else %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
+                                    {% endif %}
+                                </p>
+                                <p>{{ recommendation.snippet }}</p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        </div>
+    </section>
+    {% endif %}
+
+        {% else %}
+     <section class="bg-light-gray">
+        <div class="container">
+            <h4 class="heading">Trending this month</h4>
+            <div class="row featured align-items-stretch">
+            {% for trending in trendings %}
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="box-image-text bg-visible full-height">
+                            <div class="top">
+                                <a href="{% url 'jobs:jobs-detail' trending.id %}">
+                                    <div class="image">
+                                        <img src="{% static 'img/feature.jpg' %}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="bg"></div>
+                                    <div class="logo">
+                                        <img src="{% static 'img/logo1.png' %}" alt="" style="max-width: 80px;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h5><a href="{% url 'jobs:jobs-detail' trending.id %}">{{ trending.title }}</a></h5>
+                                <p class="featured__details"><i class="fa fa-map-marker job__location"></i>
+                                    {{ trending.location }}
+                                    {% if trending.type == '1' %}
+                                        <span class="badge featured-badge badge-success">Full time</span>
+                                    {% elif trending.type == '2' %}
+                                        <span class="badge featured-badge badge-primary">Part time</span>
+                                    {% else %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-warning">Internship</span>
+                                    {% endif %}
+                                </p>
+                                <p>{{ trending.snippet }}</p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+        </div>
+    </section>
+        {% endif %}
+
+    <section style="background-image: url({% static 'img/startup.jpg' %}); " class="section-divider">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    {% if request.user.role == 'employer' %}
+                        <p>Look at jobs posted online! </p>
+                        <p><a href="{% url 'jobs:jobs' %}" class="btn btn-outline-light">See our job offers </a></p>
+
+                    {%else %}
+                        <p>Start searching for your new job now! </p>
+                        <p><a href="{% url 'jobs:jobs' %}" class="btn btn-outline-light">See our job offers </a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

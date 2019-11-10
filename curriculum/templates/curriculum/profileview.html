@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load i18n curriculum %}
+{% load static %}
+{% block content %}
+<html>
+ <head>
+  <link rel="stylesheet"
+          href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet"
+          href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Google fonts - Roboto for copy, Montserrat for headings-->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,700">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet"
+          href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}"
+          id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+ </head>
+ <body>
+
+
+
+
+  <div class="container mx-auto">
+    <div class="row" style="padding-top: 20px">
+      <div class="col-md-3" style="background-color:#DCDCDC; padding-top:10px;">
+        {% if resume.image %}
+            <img class="rounded-circle mx-auto d-block" height="150" width="150" src="{{ resume.image.url}}" style="border: 10px">
+            {% endif %}
+
+
+
+            <h2 class="text-center" style="padding-top: 10px"><span class="badge badge-success">contact</span></h2>
+            {% if resume.email %}
+            <p>
+              <img src="{% static 'img/mail.png' %}" alt="" height="20" width="20" class="img-fluid rounded-circle">
+               &nbsp;&nbsp;{{ resume.email }}
+            </p>
+            {% endif %}
+
+            {% if resume.phone %}
+            <p>
+              <img src="{% static 'img/phone.png' %}" alt="" height="20" width="20" class="img-fluid rounded-circle">
+               &nbsp;&nbsp;{{ resume.phone }}
+            </p>
+            {% endif %}
+
+            {% if resume.city %}
+            <p>
+              <img src="{% static 'img/location.png' %}" alt="" height="20" width="20" class="img-fluid rounded-circle">
+               &nbsp;&nbsp;{{ resume.city }}, {{ resume.country }}
+            </p>
+            {% endif %}
+
+            {% if resume.skype %}
+            <p>
+              <img src="{% static 'img/linkedin.png' %}" alt="" height="20" width="20" class="img-fluid rounded-circle">
+               &nbsp;&nbsp;<a href="http://linkedin.com/in/{{ resume.skype }}">{{ resume.skype}}</a>
+            </p>
+            {% endif %}
+            {% if resume.github %}
+            <p>
+              <img src="{% static 'img/github.png' %}" alt="" height="20" width="20" class="img-fluid rounded-circle">
+               &nbsp;&nbsp;<a href="https://github.com/{{ resume.github }}">{{ resume.github}}</a>
+            </p>
+            {% endif %}
+          <blockquote class="blockquote">
+
+          {% if skills %}
+            <h2 class="text-center" style="padding-top: 10px"><span class="badge badge-success">skills</span></h2>
+
+              {% for skill in skills %}
+              {% ifchanged skill.category %}
+                <p>{{ skill.category|capfirst }}</p>
+              {% endifchanged %}
+                <p><strong>{{ skill }} ::: </strong><i>{{ skill.get_level_display|capfirst }}</i></p>
+              {% endfor %}
+            {% endif %}
+
+          </blockquote>
+          <blockquote class="blockquote">
+            {% if resume.hobbies %}
+            <h2 class="text-center" style="padding-top: 10px"><span class="badge badge-success">hobbies</span></h2>
+              <p>{{ resume.hobbies }}</p>
+            {% endif %}
+          </blockquote>
+
+      </blockquote>
+          <blockquote class="blockquote">
+            {% if language %}
+            <h2 class="text-center" style="padding-top: 10px"><span class="badge badge-success">languages</span></h2>
+            {% for lan in language %}
+              {{ lan.language }},
+              {% endfor %}
+            {% endif %}
+          </blockquote>
+      </div>
+
+
+      <div class="col-md-9" >
+        <h3 class="text-center" style="background-color:  #0000CD;color:#FFFFFF">{{ resume.firstname }} {{ resume.middlename|default_if_none:'' }} {{ resume.lastname }}</h3>
+        <h5 class="text-center" style="background-color:  #0000CD;color:#FFFFFF">{% if resume.title %}{{ resume.title }}{% endif %}</h5>
+
+
+{% if resume.resume %}
+        <p style="padding-top: 20px">
+       <button type="button" class="btn btn-my"  style="color: #FFFFFF">ABOUT ME</button><br>
+           <p style="padding-left: 130px">  {{ resume.resume }} {% endif %}</p>
+      </p>
+
+
+      {% if trainings %}
+      <p style="padding-top: 20px">
+       <button type="button" class="btn btn-my"  style="color: #FFFFFF">EDUCATION</button><br>
+
+              {% for training in trainings %}
+              <p style="color:#000080">{% if not hide_training_description and training.school %}<strong>{{ training.school }}</strong>{% endif %}</p>
+                <p style="padding-left:130px">{% daterange_display training.start_year training.start_month training.end_year training.end_month %}</p>
+                <p style="padding-left:130px">{{ training.degree }} {% if training.field_of_study %} in {{ training.field_of_study|default_if_none:'' }} {% endif %} </p>
+
+                <p style="padding-left:130px">{% if training.result %}Percentage/GPA: {{ training.result|linebreaksbr }}{% endif %}</p>
+                <br>
+              {% endfor %}
+            {% endif %}
+      </p>
+
+
+
+{% if projects %}
+      <p style="padding-top: 20px">
+       <button type="button" class="btn btn-my"  style="color: #FFFFFF">PROJECTS</button><br>
+
+              {% for project in projects %}
+                <p style="color:#000080"> <strong>{{ project.url|shortlink:project.title|safe }}</strong>  <small>{% daterange_display project.start_year project.start_month project.end_year project.end_month %}</small> </p>
+                <p style="padding-left: 130px">{{ project.description|linebreaksbr }}</p>
+                <br>
+              {% endfor %}
+            {% endif %}
+      </p>
+
+
+{% if experiences %}
+      <p style="padding-top: 20px">
+       <button type="button" class="btn btn-my"  style="color: #FFFFFF">EXPERIENCES</button><br>
+
+              {% for experience in experiences %}
+                <p style="color:#000080;margin:0;display:inline;float:left"><strong>{{ experience.title }}</strong></p>
+                <p style="margin:0;display:inline:float:right;padding-left:130px">{% daterange_display experience.start_year experience.start_month experience.end_year experience.end_month %}</p>
+                <p style="padding-left:130px">{{ experience.entreprise }}</p>
+                <p style="padding-left:130px">{% if not hide_experience_description and experience.description %}{{ experience.description|linebreaksbr }}{% endif %}</p>
+                <br>
+              {% endfor %}
+            {% endif %}
+      </p>
+
+
+{% if certifications %}
+      <p style="padding-top: 20px">
+       <button type="button" class="btn btn-my"  style="color: #FFFFFF">CERTIFICATIONS</button><br>
+
+              {% for certification in certifications %}
+                <p style="color:#000080"><strong>{{ certification.url|shortlink:certification.title|safe }} </strong>( <small>{% daterange_display certification.end_year certification.end_month %}</small> )</p>
+                <br>
+              {% endfor %}
+            {% endif %}
+      </p>
+
+
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"></script>
+<script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/front.js' %}"></script>
+
+ </body>
+</html>
+{% endblock %}
